@@ -2,7 +2,7 @@
 
 (function () {
   function redirectToRolePage(role) {
-    if (role === 'gv') window.location.href = 'index_gv.html';
+    if (role === 'gv') window.location.href = 'trang_chu_gv.html';
     else if (role === 'hs') window.location.href = 'index_hs.html';
     else window.location.href = 'index.html';
   }
@@ -78,3 +78,4 @@
     });
   });
 })();
+
