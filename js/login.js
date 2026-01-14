@@ -1,43 +1,80 @@
-// js/login.js
+// assets/js/login.js
 
-document.getElementById('login-form').addEventListener('submit', function (event) {
-    event.preventDefault();
+(function () {
+  function redirectToRolePage(role) {
+    if (role === 'gv') window.location.href = 'index_gv.html';
+    else if (role === 'hs') window.location.href = 'index_hs.html';
+    else window.location.href = 'index.html';
+  }
 
-    const username = document.getElementById('username').value.trim().toLowerCase();
-    const password = document.getElementById('password').value;
+  // Nếu đã login thì tự redirect luôn
+  function autoRedirectIfLoggedIn() {
+    const cur = localStorage.getItem('currentUser');
+    if (!cur) return;
 
-    if (!username || !password) {
-        alert('Vui lòng nhập đầy đủ.');
-        return;
+    try {
+      const user = JSON.parse(cur);
+      if (user && user.role) redirectToRolePage(user.role);
+    } catch (e) {
+      localStorage.removeItem('currentUser');
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    autoRedirectIfLoggedIn();
+
+    const form = document.getElementById('login-form');
+    if (!form) {
+      console.error('Không tìm thấy #login-form');
+      return;
     }
 
-    const userRef = db.ref('users/' + username);
+    form.addEventListener('submit', (event) => {
+      event.preventDefault();
 
-    userRef.once('value')
-        .then(snapshot => {
-            if (!snapshot.exists()) {
-                alert('Tài khoản không tồn tại!');
-                return;
-            }
+      const usernameInput = document.getElementById('username');
+      const passwordInput = document.getElementById('password');
 
-            const user = snapshot.val();
+      const username = (usernameInput?.value || '').trim().toLowerCase();
+      const password = passwordInput?.value || '';
 
-            if (user.password !== password) {
-                alert('Sai mật khẩu!');
-                return;
-            }
+      if (!username || !password) {
+        alert('Vui lòng nhập đầy đủ tên đăng nhập và mật khẩu.');
+        return;
+      }
 
-            // Lưu session đăng nhập
-            localStorage.setItem('currentUser', JSON.stringify({
-                username: username,
-                displayName: user.displayName,
-                role: user.role
-            }));
+      // Lấy user từ Firebase: users/<username>
+      const userRef = db.ref('users/' + username);
 
-            window.location.href = 'index.html';
+      userRef.once('value')
+        .then((snapshot) => {
+          if (!snapshot.exists()) {
+            alert('Tên đăng nhập không tồn tại.');
+            return null;
+          }
+
+          const user = snapshot.val();
+
+          if (!user || user.password !== password) {
+            alert('Mật khẩu không chính xác.');
+            return null;
+          }
+
+          // Lưu session
+          localStorage.setItem('currentUser', JSON.stringify({
+            username: username,
+            displayName: user.displayName || username,
+            role: user.role || ''
+          }));
+
+          alert(`Đăng nhập thành công! Chào mừng ${user.displayName || username}.`);
+          redirectToRolePage(user.role);
+          return null;
         })
-        .catch(err => {
-            console.error(err);
-            alert('Lỗi đăng nhập.');
+        .catch((err) => {
+          console.error(err);
+          alert('Lỗi đăng nhập (Firebase). Mở Console để xem chi tiết.');
         });
-});
+    });
+  });
+})();
