@@ -243,10 +243,10 @@
                             `Xin chào, ${userData.displayName || 'Giáo viên'}!`;
 
                         // Nếu bạn đang dùng trang mã GV (mat_ma_gv.html) và muốn bắt buộc qua đó:
-                        // if (sessionStorage.getItem('isTeacherVerified') !== 'true') {
-                        //     window.location.replace('mat_ma_gv.html');
-                        //     return;
-                        // }
+                        if (sessionStorage.getItem('isTeacherVerified') !== 'true') {
+                             window.location.replace('mat_ma_gv.html');
+                             return;
+                        }
 
                         return loadUserMapFromFirebase().then(loadAllSubmissionsFromFirebase);
                     })
@@ -441,3 +441,4 @@
     </script>
 </body>
 </html>
+
