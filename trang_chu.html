@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trang Chủ Lớp 6A3 Chuyên Anh - Hệ thống nộp bài</title>
+    <style>
+        /* Thiết lập chung */
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            margin: 0; 
+            padding: 0; 
+            background-color: #F8F8F8;
+            color: #333;
+        }
+
+        /* Thanh Điều hướng (Header) */
+        .header {
+            background-color: #388E3C; /* Xanh lá đậm */
+            color: white;
+            padding: 10px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        /* Khu vực Logo */
+        .logo {
+            display: flex; 
+            align-items: center;
+            cursor: pointer; 
+        }
+        .logo img {
+            height: 50px; 
+            width: auto;
+            margin-right: 10px;
+        }
+        .logo span {
+            font-size: 1.8em;
+            font-weight: bold;
+            color: white;
+        } 
+
+        .nav-links {
+            display: flex;
+            align-items: center; 
+        }
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            padding: 8px 15px;
+            border-radius: 4px;
+            margin-left: 10px;
+            transition: background-color 0.3s, color 0.3s;
+            font-weight: 500;
+        }
+        .nav-links a:hover:not(.btn-login-nav, #logout-btn) {
+            background-color: #4CAF50;
+        }
+        .nav-links a.active {
+            background-color: #4CAF50; 
+            font-weight: bold;
+        }
+
+        /* CSS cho nút Đăng Nhập Vàng */
+        #login-btn, .nav-links a.btn-login-nav { 
+            background-color: #FFC107; 
+            color: #333; 
+            font-weight: bold;
+            padding: 8px 18px; 
+            border-radius: 20px; 
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+        .nav-links a.btn-login-nav:hover {
+            background-color: #ffda6a;
+            color: #333;
+        }
+
+        /* CSS cho phần Tên người dùng ĐÃ ĐĂNG NHẬP */
+        #user-info-container {
+            display: none; 
+            align-items: center;
+            margin-left: 10px;
+        }
+        #user-avatar {
+            width: 30px; 
+            height: 30px;
+            border-radius: 50%; 
+            margin-right: 8px;
+            border: 2px solid #FFC107; 
+        }
+        #welcome-user {
+            color: #FFC107; 
+            font-weight: bold;
+            margin-right: 20px;
+            font-size: 1.1em;
+        }
+        #logout-btn {
+            background-color: #e74c3c;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        #logout-btn:hover {
+             background-color: #c0392b;
+        }
+        
+        /* Khu vực Nội dung chính (Hero Section) */
+        .hero {
+            background-image: url('https://cdn.hoidap247.com/picture/answer/20230915/large_1694791540407.jpg'); 
+            background-size: cover; 
+            background-position: center; 
+            background-color: rgba(60, 179, 113, 0.85); 
+            background-blend-mode: multiply; 
+
+            color: white;
+            text-align: center;
+            padding: 100px 20px;
+        }
+        .hero h1 {
+            font-size: 3em;
+            margin-bottom: 10px;
+            color: #FFF;
+        }
+        .hero p {
+            font-size: 1.2em;
+            margin-bottom: 30px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            color: #EEE;
+        }
+
+        /* Nút Bắt đầu */
+        .btn-start {
+            display: inline-block;
+            padding: 15px 30px;
+            background-color: #FFC107; 
+            color: #333;
+            text-decoration: none;
+            border-radius: 50px;
+            font-size: 1.1em;
+            font-weight: bold;
+            transition: background-color 0.3s;
+            box-shadow: 0 4px #e0a800;
+            border: none;
+            cursor: pointer;
+        }
+        .btn-start:hover {
+            background-color: #ffda6a;
+        }
+
+        /* CSS cho Khu vực Tính năng */
+        .features-section {
+            padding: 60px 20px;
+            text-align: center;
+            background-color: white;
+        }
+        .features-section h2 {
+            font-size: 2em;
+            color: #388E3C;
+            margin-bottom: 40px;
+        }
+        .features-container {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        .feature-box {
+            width: 30%;
+            min-width: 250px;
+            padding: 20px;
+            margin: 15px;
+            background: #f9f9f9;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            transition: transform 0.3s;
+        }
+        .feature-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+        }
+        .icon {
+            font-size: 2.5em;
+            color: #FFC107;
+            display: block;
+            margin-bottom: 10px;
+        }
+        .feature-box h3 {
+            color: #333;
+            margin-top: 0;
+        }
+
+        /* Footer */
+        .footer {
+            padding: 20px;
+            text-align: center;
+            background-color: #333;
+            color: white;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body onload="checkLoginStatus()">
+    <div class="header">
+        <div class="logo" onclick="window.location.href='trang_chu.html'">
+            <img src="https://cdn.lazi.vn/storage/uploads/edu/answer/1678977878_lazi_428645.jpeg" alt="Logo Lớp 6A3">
+            <span>LỚP 6A3</span>
+        </div>
+        <div class="nav-links">
+            <a href="trang_chu.html" class="active">Trang Chủ</a>
+            <a href="#" id="nav-nopbai-link">Nộp Bài</a> 
+            
+            <a href="dangnhap.html" id="login-btn" class="btn-login-nav">Đăng Nhập</a>
+            
+            <div id="user-info-container">
+                <img id="user-avatar" src="https://maunailxinh.com/wp-content/uploads/2025/06/avatar-an-danh-1.jpg" alt="Avatar">
+                <span id="welcome-user"></span>
+                <a href="#" onclick="logout()" id="logout-btn">Đăng Xuất</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="hero">
+        <h1>Cổng Nộp Bài Chuyên Anh</h1>
+        <p>Hệ thống số hóa giúp quản lý, nộp và trình bày các dự án học tập, thuyết trình Canva, và bài làm của lớp 6A3.</p>
+        <button class="btn-start" id="main-start-btn">Bắt đầu ngay!</button>
+    </div>
+
+    <div class="features-section">
+        <h2>Hệ thống 6A3 giúp bạn những gì?</h2>
+        <div class="features-container">
+            <div class="feature-box">
+                <span class="icon">🔗</span>
+                <h3>Nộp Bài Linh hoạt</h3>
+                <p>Nộp các sản phẩm học tập dưới dạng liên kết Canva, Google Slides, hoặc các file văn bản, hình ảnh dễ dàng.</p>
+            </div>
+            <div class="feature-box">
+                <span class="icon">👤</span>
+                <h3>Phân quyền Rõ ràng</h3>
+                <p>Học sinh chỉ thấy nơi nộp bài, Giáo viên thấy danh sách bài nộp và quản lý, đảm bảo an toàn và bảo mật.</p>
+            </div>
+            <div class="feature-box">
+                <span class="icon">🚀</span>
+                <h3>Đồng bộ Nhanh chóng</h3>
+                <p>Trải nghiệm mượt mà, tốc độ tải nhanh, truy cập được trên mọi thiết bị (máy tính, điện thoại, máy tính bảng).</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        © 2025 Lớp 6A3 Chuyên Anh | Giải pháp quản lý học tập đơn giản.
+    </div>
+
+    <script>
+        // Kiểm tra trạng thái đăng nhập và cập nhật header
+        function checkLoginStatus() {
+            const username = localStorage.getItem('username');
+            const loginBtn = document.getElementById('login-btn');
+            const userInfoContainer = document.getElementById('user-info-container');
+            const displayName = localStorage.getItem('displayName') || username; 
+
+            if (username) {
+                // Đã đăng nhập
+                loginBtn.style.display = 'none';
+                userInfoContainer.style.display = 'flex';
+                document.getElementById('welcome-user').textContent = `Xin chào, ${displayName}!`;
+            } else {
+                // Chưa đăng nhập
+                loginBtn.style.display = 'block';
+                userInfoContainer.style.display = 'none';
+            }
+            
+            // Cập nhật link Nộp Bài trên thanh điều hướng khi đã đăng nhập
+            const navNopBaiLink = document.getElementById('nav-nopbai-link');
+            const role = localStorage.getItem('role');
+            
+            if (username && role) {
+                 // Gán link cụ thể cho Nộp Bài nếu đã đăng nhập
+                 navNopBaiLink.href = role === 'hs' ? 'index_hs.html' : 'index_gv.html';
+            } else {
+                 // Nếu chưa đăng nhập, để href="#" để JS dưới xử lý chuyển về đăng nhập
+                 navNopBaiLink.href = 'dangnhap.html'; 
+            }
+        }
+
+        // Chức năng Đăng Xuất
+        function logout() {
+            localStorage.removeItem('username');
+            localStorage.removeItem('role');
+            localStorage.removeItem('displayName'); 
+            window.location.href = 'trang_chu.html';
+        }
+
+        // --- Logic Nút Chính (Bắt đầu ngay!) - ĐÃ SỬA ĐỂ PHÂN QUYỀN ---
+        document.getElementById('main-start-btn').addEventListener('click', function() {
+            const username = localStorage.getItem('username');
+            const role = localStorage.getItem('role');
+            
+            if (username) {
+                // Đã đăng nhập -> Chuyển đến trang Nộp Bài theo vai trò
+                if (role === 'hs') {
+                    window.location.href = 'index_hs.html';
+                } else if (role === 'gv') {
+                    window.location.href = 'index_gv.html';
+                } else {
+                     alert("Lỗi: Vai trò người dùng không xác định.");
+                }
+            } else {
+                // Chưa đăng nhập -> Chuyển đến trang đăng nhập
+                window.location.href = 'dangnhap.html';
+            }
+        });
+
+        // --- Logic Nút Nộp Bài (Trên thanh điều hướng) - ĐÃ SỬA ĐỂ PHÂN QUYỀN VÀ TRÁNH CHUYỂN HƯỚNG MẶC ĐỊNH ---
+        document.getElementById('nav-nopbai-link').addEventListener('click', function(event) {
+            // Chỉ cần ngăn chặn nếu chưa đăng nhập (đã xử lý link trong checkLoginStatus)
+            const username = localStorage.getItem('username');
+            
+            if (!username) {
+                event.preventDefault(); // Ngăn chuyển hướng
+                window.location.href = 'dangnhap.html';
+            }
+            // Nếu đã đăng nhập, link href đã được đặt trong checkLoginStatus sẽ hoạt động
+        });
+
+        // Tải và hiển thị bài nộp (Đã sửa lỗi 'Ẩn danh')
+// Tải và hiển thị bài nộp (Phiên bản FIX lỗi "Ẩn danh" triệt để)
+function loadSubmissions() {
+    const submissions = JSON.parse(localStorage.getItem('submissions') || '[]');
+    const users = JSON.parse(localStorage.getItem('users') || '[]');
+    const tableBody = document.querySelector('#submissions-table tbody');
+    tableBody.innerHTML = ''; 
+
+    if (submissions.length === 0) {
+        // Colspan là 7
+        tableBody.innerHTML = '<tr><td colspan="7" class="empty-row">Chưa có bài nộp nào trong hệ thống.</td></tr>';
+        return;
+    }
+
+    submissions.forEach((submission, index) => {
+        const row = tableBody.insertRow();
+        
+        // --- LOGIC TÌM KIẾM CẢI TIẾN ---
+        const user = users.find(u => u.username === submission.username);
+        
+        // Nếu tìm thấy, lấy displayName. Nếu không, hiển thị "Ẩn danh (username)"
+        let displayName = 'Ẩn danh';
+        let username = submission.username || 'Không rõ';
+
+        if (user && user.displayName) {
+            displayName = user.displayName;
+        } else if (user) {
+            // Trường hợp tài khoản tồn tại nhưng displayName bị rỗng
+            displayName = `[Tên rỗng] (${username})`;
+        } else {
+            // Trường hợp bài nộp có username nhưng không có trong danh sách users (Lỗi đồng bộ)
+            displayName = `Ẩn danh (${username})`;
+        }
+        // ----------------------------------------
+        
+        row.insertCell().textContent = index + 1; // STT
+        row.insertCell().textContent = displayName; // Họ Tên Học Sinh
+        row.insertCell().textContent = username;    // Tên Đăng Nhập
+        row.insertCell().textContent = submission.tenBaiTap; // Tên Bài Tập
+        row.insertCell().textContent = formatTimestamp(submission.timestamp); // Thời gian nộp
+        
+        // Trạng thái chấm điểm
+        const statusCell = row.insertCell();
+        statusCell.innerHTML = `<span style="font-weight: bold; color: #e67e22;">Chưa chấm</span>`;
+        
+        // Thao Tác (Xem Link và Xóa)
+        row.insertCell().innerHTML = `
+            <a href="${submission.link}" target="_blank">
+                <button class="btn-action reset-btn" style="margin-right: 5px;">
+                    <i class="fas fa-external-link-alt"></i> Xem Bài
+                </button>
+            </a>
+            <button onclick="deleteSubmission('${submission.timestamp}')" class="btn-action delete-btn">
+                <i class="fas fa-trash-alt"></i> Xóa
+            </button>
+        `;
+    });
+}
+    </script>
+        
+</body>
+</html>

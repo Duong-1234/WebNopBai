@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản Lý Thành Viên Lớp 6A3</title>
+    <link rel="stylesheet" href="style.css"> 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div class="logo">LỚP 6A3 (QUẢN LÝ)</div>
+        <nav>
+            <a href="trang_chu_gv.html">Trang Chủ</a>
+            <a href="index_gv.html">Chấm Bài</a>
+            <div class="user-info">
+                <i class="fas fa-user-circle"></i> 
+                <span>Xin chào, <span id="display-name">Giáo viên</span>!</span>
+                <a href="#" id="logout-button" class="btn-logout">Đăng Xuất</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container">
+        <h2 class="section-title">Quản Lý Thành Viên Lớp 6A3</h2>
+        
+        <div id="stats-summary" class="stats-box">
+            <p class="stats-title"><i class="fas fa-chart-bar"></i> Thống Kê Tổng Hợp</p>
+            <div class="stats-content">
+                <span id="total-users">Tổng số: </span>
+                <span id="total-gv">Giáo viên: </span>
+                <span id="total-hs">Học sinh: </span>
+            </div>
+        </div>
+        
+        <h3 class="list-title gv-color">
+            <i class="fas fa-chalkboard-teacher"></i> Giáo Viên Quản Lý
+        </h3>
+        <div class="content-box">
+            <table id="gv-list-table" class="data-table">
+                <thead>
+                    <tr>
+                        <th>STT</th>
+                        <th>Họ và Tên</th>
+                        <th>Tên Đăng Nhập</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    </tbody>
+            </table>
+        </div>
+
+        <h3 class="list-title hs-color">
+            <i class="fas fa-user-graduate"></i> Danh Sách Học Sinh
+        </h3>
+        <div class="content-box">
+            <table id="hs-list-table" class="data-table">
+                <thead>
+                    <tr>
+                        <th>STT</th>
+                        <th>Họ và Tên</th>
+                        <th>Tên Đăng Nhập</th>
+                        <th class="col-actions">Thao Tác Quản Lý</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    </tbody>
+            </table>
+        </div>
+    </main>
+    
+    <footer class="footer">
+        © 2025 Lớp 6A3 Chuyên Anh | Hệ thống Quản Lý.
+    </footer>
+
+   <script src="db_submissions.js"></script>
+    <script>
+        // --- HÀM HỖ TRỢ: CHUYỂN OBJECT allUsers THÀNH MẢNG DỄ DÀNG XỬ LÝ ---
+        function getAllUsersAsArray() {
+            const usersJSON = localStorage.getItem('allUsers');
+            const allUsersObject = usersJSON ? JSON.parse(usersJSON) : {};
+            
+            // Chuyển đổi Object thành Mảng các đối tượng User, thêm 'username' vào mỗi user
+            // { 'tuananh': { displayName: 'Tuan Anh', role: 'hs' }, ... }
+            // -> [ { username: 'tuananh', displayName: 'Tuan Anh', role: 'hs' }, ... ]
+            return Object.keys(allUsersObject).map(username => ({
+                username: username,
+                ...allUsersObject[username] // Thêm các thuộc tính khác (displayName, role, password)
+            }));
+        }
+
+        function checkAuth() {
+            const role = localStorage.getItem('role');
+            if (role !== 'gv') {
+                alert("Bạn không có quyền truy cập trang này.");
+                // Tốt hơn nên chuyển hướng về trang chủ mặc định nếu không phải GV
+                window.location.href = 'trang_chu.html'; 
+            }
+            const displayName = localStorage.getItem('displayName') || 'Giáo viên';
+            document.getElementById('display-name').textContent = displayName;
+        }
+
+        function loadUserList() {
+            // BƯỚC SỬA LỖI 1: Lấy danh sách từ key 'allUsers' và chuyển thành mảng
+            const usersArray = getAllUsersAsArray(); 
+            
+            const gvTableBody = document.querySelector('#gv-list-table tbody');
+            const hsTableBody = document.querySelector('#hs-list-table tbody');
+            
+            gvTableBody.innerHTML = ''; 
+            hsTableBody.innerHTML = ''; 
+
+            const gvList = usersArray.filter(user => user.role === 'gv');
+            const hsList = usersArray.filter(user => user.role === 'hs');
+            
+            // Cập nhật thống kê
+            document.getElementById('total-users').innerHTML = `Tổng số: <b>${usersArray.length}</b>`;
+            document.getElementById('total-gv').innerHTML = `Giáo viên: <b>${gvList.length}</b>`;
+            document.getElementById('total-hs').innerHTML = `Học sinh: <b>${hsList.length}</b>`;
+
+            // Hiển thị danh sách GIÁO VIÊN
+            if (gvList.length === 0) {
+                gvTableBody.innerHTML = '<tr><td colspan="3" class="empty-row">Chưa có tài khoản Giáo viên nào.</td></tr>';
+            } else {
+                gvList.forEach((user, index) => {
+                    const row = gvTableBody.insertRow();
+                    row.insertCell().textContent = index + 1;
+                    row.insertCell().textContent = user.displayName; 
+                    row.insertCell().textContent = user.username; 
+                });
+            }
+
+            // Hiển thị danh sách HỌC SINH
+            if (hsList.length === 0) {
+                hsTableBody.innerHTML = '<tr><td colspan="4" class="empty-row">Lớp hiện chưa có học sinh nào.</td></tr>';
+            } else {
+                hsList.forEach((user, index) => {
+                    const row = hsTableBody.insertRow();
+                    row.insertCell().textContent = index + 1;
+                    row.insertCell().textContent = user.displayName; 
+                    row.insertCell().textContent = user.username; 
+                    
+                    // Thao Tác Quản Lý (Chỉ còn nút Xóa)
+                    // Dùng user.username để tham chiếu đến key
+                    row.insertCell().innerHTML = `
+                        <button onclick="removeUser('${user.username}')" class="btn-action delete-btn">
+                            <i class="fas fa-trash-alt"></i> Xóa HS
+                        </button>
+                    `;
+                });
+            }
+        }
+        
+        // Hàm Xóa Học Sinh
+        function removeUser(usernameToDelete) {
+            if (confirm(`Bạn có chắc chắn muốn XÓA VĨNH VIỄN học sinh ${usernameToDelete} khỏi hệ thống không? Hành động này không thể hoàn tác.`)) {
+                // BƯỚC SỬA LỖI 2: Xử lý xóa trên Object (key 'allUsers')
+                const usersJSON = localStorage.getItem('allUsers');
+                let allUsers = usersJSON ? JSON.parse(usersJSON) : {};
+                
+                // Xóa key username khỏi Object
+                delete allUsers[usernameToDelete];
+
+                // Lưu lại Object đã xóa
+                localStorage.setItem('allUsers', JSON.stringify(allUsers));
+                
+                loadUserList();
+                alert(`Đã xóa tài khoản ${usernameToDelete} khỏi hệ thống.`);
+            }
+        }
+
+        document.getElementById('logout-button').addEventListener('click', function(e) {
+            e.preventDefault();
+            localStorage.removeItem('username');
+            localStorage.removeItem('displayName');
+            localStorage.removeItem('role');
+            window.location.href = 'trang_chu.html'; 
+        });
+
+        // Chạy hàm kiểm tra và tải danh sách khi load trang
+        checkAuth();
+        loadUserList();
+    </script>
+</body>
+</html>

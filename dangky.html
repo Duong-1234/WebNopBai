@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng Ký | Cổng Nộp Bài 6A3</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* CSS của bạn (Giữ nguyên) */
+        :root {
+            --primary-green: #388E3C;
+            --light-green: #4CAF50;
+            --dark-gray: #333;
+            --medium-gray: #555;
+            --light-gray: #ddd;
+            --accent-yellow: #FFC107;
+            --bg-light: #f9f9f9;
+            --text-color: #333;
+            --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-light);
+            display: flex;
+            min-height: 100vh;
+            color: var(--text-color);
+            overflow: hidden; 
+        }
+
+        .signup-wrapper {
+            display: flex;
+            width: 100%;
+        }
+
+        /* --- HEADER --- */
+        .header {
+            background-color: var(--primary-green);
+            color: white;
+            padding: 10px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: var(--box-shadow);
+            position: absolute; 
+            top: 0;
+            width: calc(100% - 80px); 
+            z-index: 10;
+        }
+
+        .logo {
+            font-size: 1.8em;
+            font-weight: 700;
+            color: white;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Nút Đăng Nhập (màu vàng) */
+        .nav-links a.btn-login-nav { 
+            background-color: var(--accent-yellow); 
+            color: var(--dark-gray); 
+            font-weight: 900;
+            padding: 10px 20px;
+            border-radius: 25px; 
+        }
+        .nav-links a.btn-login-nav:hover { 
+            background-color: #ffd760; 
+        }
+
+
+        /* --- LEFT SIDE - SIGNUP FORM --- */
+        .signup-left {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 120px 40px 40px 40px; 
+            background-color: white;
+            position: relative;
+            min-width: 400px; 
+            overflow-y: auto; 
+        }
+
+        .signup-logo-small {
+            position: absolute;
+            top: 40px;
+            left: 40px;
+            font-size: 1.2em;
+            font-weight: 700;
+            color: var(--primary-green);
+            cursor: pointer;
+        }
+
+        .signup-form-container {
+            width: 100%;
+            max-width: 380px; 
+            text-align: left;
+        }
+
+        .signup-form-container h1 {
+            font-size: 2.2em;
+            font-weight: 500;
+            margin-bottom: 30px;
+            color: var(--dark-gray);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.9em;
+            color: var(--medium-gray);
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+
+        .input-box-wrapper {
+            position: relative;
+        }
+
+        .form-group input[type="text"],
+        .form-group input[type="password"],
+        .form-group input[type="email"],
+        .form-group select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid var(--light-gray);
+            border-radius: 8px;
+            font-size: 1em;
+            box-sizing: border-box;
+            transition: border-color 0.3s;
+        }
+
+        .password-icon {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--primary-green);
+            cursor: pointer;
+        }
+
+        .form-group input:focus, .form-group select:focus {
+            outline: none;
+            border-color: var(--primary-green);
+        }
+
+        .form-options {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            margin-bottom: 30px;
+            font-size: 0.9em;
+        }
+
+        .form-options input[type="checkbox"] {
+            margin-right: 5px;
+        }
+
+        .btn-signup {
+            width: 100%;
+            padding: 15px;
+            background-color: var(--primary-green);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-bottom: 20px;
+        }
+        .btn-signup:hover {
+            background-color: var(--light-green);
+        }
+
+        .back-to-home {
+            width: 100%;
+            text-align: center;
+            margin-top: 10px;
+            font-size: 1em;
+        }
+        .back-to-home a {
+            display: inline-block;
+            color: var(--medium-gray);
+            text-decoration: none;
+            padding: 10px 0;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        .back-to-home a:hover {
+            color: var(--primary-green);
+            text-decoration: underline;
+        }
+
+
+        /* --- RIGHT SIDE - IMAGE --- */
+        .signup-right {
+            flex: 1.2;
+            background-color: #2F4F4F;
+            background-image: url('https://hcmupeda.edu.vn/wp-content/uploads/2021/10/Ky-nang-lam-viec-nhom-la-gi-va-cach-lam-viec-nhom-hieu-qua-768x506.jpg');
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+
+        .signup-right-overlay {
+            position: absolute;
+            bottom: 40px;
+            left: 40px;
+            color: white;
+            font-size: 1.5em;
+            font-weight: bold;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 992px) {
+            .signup-right {
+                display: none;
+            }
+            .signup-left {
+                width: 100%;
+                flex: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <a href="trang_chu.html" class="logo">6A3</a>
+        <div class="nav-links">
+            <a href="dangnhap.html" class="btn-login-nav">Đăng Nhập</a>
+        </div>
+    </div>
+
+    <div class="signup-wrapper">
+        <div class="signup-left">
+            <div class="signup-logo-small" onclick="window.location.href='trang_chu.html'">
+                6A3
+            </div>
+
+            <div class="signup-form-container">
+                <h1>Sign Up</h1>
+
+                <form id="signup-form"> 
+                    <div class="form-group">
+                        <label for="display-name">Họ và tên hiển thị</label>
+                        <input type="text" id="display-name" required placeholder="Tên của bạn">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="username">Tên đăng nhập</label>
+                        <input type="text" id="username" required placeholder="Chỉ chứa chữ cái, số và dấu gạch dưới">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password">Mật khẩu</label>
+                        <div class="input-box-wrapper">
+                            <input type="password" id="password" required placeholder="Ít nhất 6 ký tự">
+                            <i class="fas fa-eye password-icon"></i>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="confirm-password">Xác nhận mật khẩu</label>
+                        <div class="input-box-wrapper">
+                            <input type="password" id="confirm-password" required placeholder="Nhập lại mật khẩu">
+                            <i class="fas fa-eye password-icon"></i>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="role">Chọn Vai Trò</label>
+                        <select id="role" required>
+                            <option value="">-- Chọn vai trò --</option>
+                            <option value="hs">Học sinh</option>
+                            <option value="gv">Giáo viên</option>
+                        </select>
+                    </div>
+
+                    <button type="submit" class="btn-signup">Đăng Ký</button>
+                </form>
+
+                <p style="text-align: center; margin-top: 20px; font-size: 0.9em;">
+                    Đã có tài khoản? <a href="dangnhap.html" style="font-weight: 700;">Đăng nhập ngay!</a>
+                </p>
+
+                <div class="back-to-home">
+                    <a href="trang_chu.html"><i class="fas fa-home"></i> Quay lại Trang Chủ</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="signup-right">
+            <div class="signup-right-overlay">
+                CỔNG NỘP BÀI
+            </div>
+        </div>
+    </div>
+
+    <script src="db_submissions.js"></script> 
+    
+    <script>
+        // Chức năng ẩn/hiện mật khẩu (giữ nguyên)
+        document.querySelectorAll('.password-icon').forEach(icon => {
+            icon.addEventListener('click', function() {
+                const passwordInput = this.previousElementSibling;
+                const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+                passwordInput.setAttribute('type', type);
+                this.classList.toggle('fa-eye-slash');
+                this.classList.toggle('fa-eye');
+            });
+        });
+
+        // Hàm xử lý đăng ký chính
+        document.getElementById('signup-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const displayName = document.getElementById('display-name').value.trim();
+            const username = document.getElementById('username').value.trim();
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirm-password').value;
+            const role = document.getElementById('role').value; // Giữ lại trường role
+
+            // --- 1. KIỂM TRA DỮ LIỆU ---
+            if (!displayName || !username || !password || !confirmPassword || !role) {
+                alert('Vui lòng điền đầy đủ tất cả các trường.');
+                return;
+            }
+            if (password !== confirmPassword) {
+                alert('Mật khẩu và xác nhận mật khẩu không khớp.');
+                return;
+            }
+            if (password.length < 6) {
+                alert('Mật khẩu phải có ít nhất 6 ký tự.');
+                return;
+            }
+            const usernameRegex = /^[a-zA-Z0-9_]+$/;
+            if (!usernameRegex.test(username)) {
+                alert('Tên đăng nhập chỉ có thể chứa chữ cái (không dấu), số và dấu gạch dưới.');
+                return;
+            }
+
+            // --- 2. LẤY VÀ KIỂM TRA DANH SÁCH (SỬ DỤNG KEY CHUNG 'allUsers') ---
+            const usersJSON = localStorage.getItem('allUsers');
+            let allUsers = {};
+            if (usersJSON) {
+                allUsers = JSON.parse(usersJSON);
+            }
+            
+            // Kiểm tra tên đăng nhập đã tồn tại chưa (trong Object)
+            if (allUsers[username]) {
+                alert('Tên đăng nhập này đã tồn tại. Vui lòng chọn tên khác.');
+                return;
+            }
+
+            // --- 3. LƯU TÀI KHOẢN MỚI (DƯỚI DẠNG OBJECT) ---
+            const newUser = {
+                displayName: displayName,
+                password: password, 
+                role: role // Lưu vai trò đã chọn
+            };
+
+            // Thêm người dùng mới vào Object
+            allUsers[username] = newUser;
+            
+            // LƯU LẠI VÀO LOCAL STORAGE DƯỚI KEY 'allUsers' (dạng OBJECT)
+            localStorage.setItem('allUsers', JSON.stringify(allUsers)); 
+
+            // --- 4. CHUYỂN HƯỚNG ---
+            alert('Đăng ký thành công! Bạn có thể đăng nhập ngay bây giờ.');
+            window.location.href = 'dangnhap.html'; 
+        });
+    </script>
+</body>
+</html>

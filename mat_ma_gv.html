@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Xác minh Giáo viên</title>
+    <style>
+        /* CSS ĐẸP ĐÃ CUNG CẤP */
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+
+        :root {
+            --primary-color: #388E3C; 
+            --secondary-color: #4CAF50;
+            --accent-color: #FFC107;
+            --error-color: #D32F2F;
+            --background-light: #F7F7F7;
+            --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--background-light);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding-top: 80px; 
+        }
+        h2 {
+            color: var(--primary-color);
+            font-weight: 600;
+            border-bottom: 2px solid var(--secondary-color);
+            padding-bottom: 5px;
+            margin-bottom: 20px;
+        }
+
+        /* HEADER */
+        #main-header {
+            background-color: var(--primary-color); 
+            color: white;
+            padding: 12px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            box-sizing: border-box;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        }
+        #class-title { font-size: 1.7em; font-weight: 700; }
+        .header-right { display: flex; align-items: center; }
+        .nav-button {
+            border: none; padding: 10px 18px; margin-left: 10px; border-radius: 20px;
+            cursor: pointer; font-weight: 600; transition: all 0.3s ease;
+            background-color: var(--secondary-color); color: white;
+        }
+        .red-button { background-color: var(--error-color); }
+        .nav-button:hover { transform: translateY(-2px); box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); }
+        
+        /* Hiển thị trạng thái */
+        #user-info-display { 
+            color: var(--accent-color); 
+            margin-left: 15px; 
+            font-weight: 600; 
+            font-size: 1em; 
+        }
+
+        /* CONTAINER XÁC MINH */
+        .auth-box {
+            background-color: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: var(--box-shadow);
+            width: 350px;
+            margin: 20px;
+            text-align: center;
+        }
+        label {
+            display: block;
+            margin-top: 15px;
+            font-weight: 600;
+            text-align: left;
+            color: #444;
+        }
+        input[type="password"] {
+            width: 100%;
+            padding: 12px;
+            margin-top: 8px;
+            box-sizing: border-box;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+        }
+        .auth-box button {
+            background-color: var(--primary-color); 
+            color: white;
+            padding: 12px 15px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            margin-top: 25px;
+            width: 100%;
+            font-weight: 600;
+            transition: background-color 0.3s ease;
+        }
+        .auth-box button:hover {
+            background-color: #307a34;
+        }
+        .warning {
+            color: var(--error-color);
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        #login-error {
+            color: var(--error-color);
+            font-weight: 600;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    
+    <header id="main-header">
+        <div class="header-left">
+            <span id="class-title">LỚP 6A3 (QUẢN LÝ)</span> 
+        </div>
+        <div class="header-right">
+            <span id="user-info-display"></span>
+            <button class="nav-button red-button" onclick="window.location.href='trang_chu_gv.html'">Quay lại</button>
+        </div>
+    </header>
+
+    <div id="teacher-code-prompt" class="auth-box">
+        <h2>🔑 Xác minh Mã Giáo viên</h2>
+        <p class="warning">Cảnh báo: Vui lòng nhập Mã xác minh để truy cập.</p>
+        
+        <form id="teacher-code-form">
+            <label for="initial-teacher-code">Mã Giáo viên:</label>
+            <input type="password" id="initial-teacher-code" required>
+            
+            <p id="login-error" style="color: red; margin-top: 10px; display: none;"></p>
+
+            <button type="submit">Truy cập Trang Quản lý</button>
+        </form>
+    </div>
+
+    <script>
+        // --- CÀI ĐẶT MÃ GV MỚI ---
+        const TEACHER_CODE = "15837204"; 
+        const MAIN_MANAGEMENT_FILE = "chuc_nang_gv.html"; 
+        const STATUS_LOGGED_IN = "ĐÃ XÁC MINH"; 
+        const STATUS_PENDING = "Đang xác minh..."; 
+        // -----------------------------
+
+        // Đảm bảo xóa trạng thái đăng nhập cũ (sessionStorage)
+        sessionStorage.removeItem('isTeacherLoggedIn');
+        sessionStorage.removeItem('teacherDisplayName');
+
+        const form = document.getElementById('teacher-code-form');
+        const errorDisplay = document.getElementById('login-error');
+        const codeInput = document.getElementById('initial-teacher-code');
+        const userInfoDisplay = document.getElementById('user-info-display');
+
+        // Gắn sự kiện SUBMIT FORM
+        form.addEventListener('submit', function(event) {
+            // Ngăn chặn tải lại trang
+            event.preventDefault(); 
+            
+            const enteredCode = codeInput.value;
+            errorDisplay.style.display = 'none';
+
+            // KIỂM TRA MÃ GIÁO VIÊN
+            if (enteredCode === TEACHER_CODE) {
+                // XÁC MINH THÀNH CÔNG: LƯU TRẠNG THÁI VÀ CHUYỂN HƯỚNG
+                sessionStorage.setItem('isTeacherLoggedIn', 'true');
+                sessionStorage.setItem('teacherDisplayName', STATUS_LOGGED_IN); 
+                
+                // CHUYỂN HƯỚNG ĐẾN TRANG MỚI
+                window.location.href = MAIN_MANAGEMENT_FILE;
+            } else {
+                errorDisplay.textContent = "Mã Giáo viên không chính xác. Quyền truy cập bị từ chối.";
+                errorDisplay.style.display = 'block';
+            }
+        });
+        
+        // Cập nhật trạng thái chờ khi trang load
+        userInfoDisplay.textContent = STATUS_PENDING;
+
+    </script>
+</body>
+</html>

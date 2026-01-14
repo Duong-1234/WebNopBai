@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trang Chủ | Giáo Viên 6A3</title>
+    <style>
+        /* CSS Chung & Header */
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            margin: 0; 
+            padding: 0; 
+            background-color: #f0f8ff; /* Nền xanh nhạt */
+            color: #333;
+        }
+        .header {
+            background-color: #388E3C; /* Màu xanh lá đậm */
+            color: white;
+            padding: 10px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            font-size: 1.8em;
+            font-weight: bold;
+            color: white;
+        }
+        .nav-links {
+            display: flex; align-items: center;
+        }
+        .nav-links a {
+            color: white; text-decoration: none; padding: 8px 15px; border-radius: 4px; margin-left: 10px;
+            transition: background-color 0.3s;
+        }
+        .nav-links a.active {
+            background-color: #4CAF50; /* Màu xanh lá nhạt hơn */
+            font-weight: bold;
+        }
+        /* Phần thông tin người dùng */
+        #user-info-container {
+            display: flex; align-items: center; margin-left: 20px;
+        }
+        #welcome-user {
+            color: #FFC107; /* Màu vàng */
+            font-weight: bold; margin-right: 20px; font-size: 1.1em;
+        }
+        #logout-btn {
+            background-color: #e74c3c; cursor: pointer; padding: 8px 15px;
+        }
+        #logout-btn:hover { background-color: #c0392b; }
+
+        /* Banner chính (Giống trang chủ chung) */
+        .hero-banner {
+            background-image: url('https://media.vneconomy.vn/images/upload/2025/02/20/anh-lam-viec-nhom-hoat-hinh-034515233.jpg'); /* Thay bằng ảnh nền của bạn */
+            background-size: cover;
+            background-position: center;
+            height: 400px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            text-align: center;
+            position: relative;
+        }
+        .hero-banner::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0, 0, 0, 0.4); /* Lớp phủ đen nhẹ để chữ nổi bật */
+        }
+        .banner-content {
+            position: relative;
+            z-index: 1;
+        }
+        .banner-content h1 {
+            font-size: 3.5em;
+            margin-bottom: 10px;
+        }
+        .banner-content p {
+            font-size: 1.5em;
+            margin-bottom: 30px;
+        }
+        #start-button {
+            background-color: #FFC107;
+            color: #333;
+            padding: 15px 40px;
+            font-size: 1.5em;
+            font-weight: bold;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+        #start-button:hover {
+            background-color: #ff9800;
+            transform: scale(1.05);
+        }
+
+        /* Các khối tính năng */
+        .features-section {
+            padding: 60px 20px;
+            text-align: center;
+        }
+        .features-section h2 {
+            font-size: 2em;
+            color: #388E3C;
+            margin-bottom: 40px;
+        }
+        .feature-grid {
+            max-width: 900px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-around;
+            gap: 20px;
+        }
+        .feature-card {
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            flex: 1;
+            text-align: center;
+            transition: transform 0.3s;
+        }
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+        .feature-card span {
+            font-size: 2em;
+            color: #388E3C;
+            display: block;
+            margin-bottom: 15px;
+        }
+        .feature-card h3 {
+            color: #4CAF50;
+            margin-bottom: 10px;
+        }
+        .feature-card p {
+            font-size: 0.9em;
+            color: #555;
+        }
+
+        /* Footer */
+        .footer {
+            padding: 20px; text-align: center; background-color: #333;
+            color: white; font-size: 0.9em; margin-top: 40px;
+        }
+    </style>
+</head>
+<body onload="checkTeacherAccess()">
+    <div class="header">
+        <div class="logo">
+            <span>LỚP 6A3 (GV)</span>
+        </div>
+        <div class="nav-links">
+            <a href="#" class="active">Trang Chủ</a> 
+            <div id="user-info-container">
+                <span id="welcome-user"></span>
+                <a href="#" onclick="logout()" id="logout-btn">Đăng Xuất</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="hero-banner">
+        <div class="banner-content">
+            <h1>CỔNG QUẢN LÝ BÀI TẬP LỚP 6A3</h1>
+            <p>Hệ thống hỗ trợ Giáo viên quản lý, xem và chấm điểm bài nộp của lớp 6A3.</p>
+            
+            <button id="start-button" onclick="window.location.href='mat_ma_gv.html'">Bắt đầu ngay!</button>
+        </div>
+    </div>
+
+    <div class="features-section">
+        <h2>HỆ THỐNG GIÁO VIÊN HỖ TRỢ BẠN NHỮNG GÌ?</h2>
+        <div class="feature-grid">
+            <div class="feature-card">
+                <span>⭐</span>
+                <h3>Phân Quyền Rõ Ràng</h3>
+                <p>Quản lý danh sách bài nộp của tất cả học sinh, chấm điểm và theo dõi trạng thái bài tập.</p>
+            </div>
+            <div class="feature-card">
+                <span>📊</span>
+                <h3>Theo Dõi Tiến Độ</h3>
+                <p>Dễ dàng biết được học sinh nào đã nộp bài, bài nào cần chấm và tổng quan tình hình lớp học.</p>
+            </div>
+             <div class="feature-card">
+                <span>🔗</span>
+                <h3>Xem Nhanh Bài Nộp</h3>
+                <p>Truy cập nhanh chóng đến các liên kết bài nộp (Canva, Google Drive, v.v.) của học sinh.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        © 2025 Lớp 6A3 Chuyên Anh | Hệ thống Quản Lý.
+    </div>
+
+    <script>
+        let loggedInDisplayName = ''; 
+
+        function checkTeacherAccess() {
+            const role = localStorage.getItem('role');
+            const displayName = localStorage.getItem('displayName'); 
+
+            if (role !== 'gv') {
+                alert('Bạn không có quyền truy cập trang này. Vui lòng đăng nhập bằng tài khoản Giáo viên.');
+                window.location.href = 'dangnhap.html';
+                return;
+            }
+
+            loggedInDisplayName = displayName || 'Giáo viên'; 
+            
+            document.getElementById('welcome-user').textContent = `Xin chào, ${loggedInDisplayName}!`;
+        }
+
+        function logout() {
+            localStorage.removeItem('username');
+            localStorage.removeItem('role');
+            localStorage.removeItem('displayName'); 
+            window.location.href = 'trang_chu.html'; 
+        }
+    </script>
+</body>
+</html>
