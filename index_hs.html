@@ -1,510 +1,439 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nộp Bài Tập | Học Sinh 6A3</title>
-    <style>
-        /* CSS KHÔNG THAY ĐỔI, ĐƯỢC GIỮ NGUYÊN */
-        body { 
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
-            margin: 0; 
-            padding: 0; 
-            background-color: #f0f8ff; 
-            color: #333;
-        }
-        .header {
-            background-color: #388E3C; 
-            color: white;
-            padding: 10px 40px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .logo {
-            display: flex; 
-            align-items: center;
-            cursor: pointer;
-            font-size: 1.8em;
-            font-weight: bold;
-        }
-        .logo span { margin-left: 10px; }
-        .nav-links {
-            display: flex; align-items: center; 
-        }
-        .nav-links a {
-            color: white; text-decoration: none; padding: 8px 15px; border-radius: 4px; margin-left: 10px;
-            transition: background-color 0.3s;
-        }
-        .nav-links a.active {
-            background-color: #4CAF50; font-weight: bold;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nộp Bài Tập | Học Sinh 6A3</title>
+  <style>
+    /* CSS KHÔNG THAY ĐỔI, ĐƯỢC GIỮ NGUYÊN */
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f0f8ff;
+      color: #333;
+    }
+    .header {
+      background-color: #388E3C;
+      color: white;
+      padding: 10px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      font-size: 1.8em;
+      font-weight: bold;
+    }
+    .logo span { margin-left: 10px; }
+    .nav-links { display: flex; align-items: center; }
+    .nav-links a {
+      color: white; text-decoration: none; padding: 8px 15px; border-radius: 4px; margin-left: 10px;
+      transition: background-color 0.3s;
+    }
+    .nav-links a.active { background-color: #4CAF50; font-weight: bold; }
 
-        /* User Info - Đã Đăng Nhập */
-        #user-info-container {
-            display: flex; align-items: center; margin-left: 20px;
-        }
-        #user-avatar {
-            width: 30px; height: 30px; border-radius: 50%; 
-            margin-right: 8px; border: 2px solid #FFC107; 
-        }
-        #welcome-user {
-            color: #FFC107; font-weight: bold; margin-right: 20px; font-size: 1.1em;
-        }
-        #logout-btn {
-            background-color: #e74c3c; cursor: pointer; padding: 8px 15px;
-        }
-        #logout-btn:hover { background-color: #c0392b; }
+    #user-info-container { display: flex; align-items: center; margin-left: 20px; }
+    #user-avatar {
+      width: 30px; height: 30px; border-radius: 50%;
+      margin-right: 8px; border: 2px solid #FFC107;
+    }
+    #welcome-user { color: #FFC107; font-weight: bold; margin-right: 20px; font-size: 1.1em; }
+    #logout-btn { background-color: #e74c3c; cursor: pointer; padding: 8px 15px; }
+    #logout-btn:hover { background-color: #c0392b; }
 
-        /* Form Nộp Bài và Vùng chính */
-        .main-area {
-            max-width: 1000px;
-            margin: 40px auto;
-            padding: 0 20px;
-        }
-        .submission-area {
-            background-color: white;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            padding: 20px;
-            margin-bottom: 40px;
-        }
-        .submission-area h2 {
-            font-size: 2em; color: #388E3C; margin-bottom: 20px;
-        }
-        .submission-box {
-            border: 1px solid #4CAF50; padding: 20px; border-radius: 8px; margin-top: 20px;
-        }
-        .submission-box label {
-            display: block; font-weight: bold; margin-top: 15px; color: #388E3C;
-        }
-        .submission-box input[type="text"], 
-        .submission-box input[type="file"],
-        .submission-box select { 
-            width: calc(100% - 22px); padding: 10px; margin-top: 5px; border: 1px solid #ccc;
-            border-radius: 4px; font-size: 1em; background-color: white; cursor: pointer;
-        }
-        .submission-box button[type="submit"] {
-            background-color: #4CAF50; color: white; padding: 10px 20px; border: none;
-            border-radius: 4px; cursor: pointer; font-size: 1.1em; margin-top: 20px;
-            transition: background-color 0.3s;
-        }
-        .submission-box button[type="submit"]:hover {
-            background-color: #388E3C;
-        }
+    .main-area { max-width: 1000px; margin: 40px auto; padding: 0 20px; }
+    .submission-area {
+      background-color: white;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      padding: 20px;
+      margin-bottom: 40px;
+    }
+    .submission-area h2 { font-size: 2em; color: #388E3C; margin-bottom: 20px; }
+    .submission-box { border: 1px solid #4CAF50; padding: 20px; border-radius: 8px; margin-top: 20px; }
+    .submission-box label { display: block; font-weight: bold; margin-top: 15px; color: #388E3C; }
+    .submission-box input[type="text"],
+    .submission-box input[type="file"],
+    .submission-box select {
+      width: calc(100% - 22px); padding: 10px; margin-top: 5px; border: 1px solid #ccc;
+      border-radius: 4px; font-size: 1em; background-color: white; cursor: pointer;
+    }
+    .submission-box button[type="submit"] {
+      background-color: #4CAF50; color: white; padding: 10px 20px; border: none;
+      border-radius: 4px; cursor: pointer; font-size: 1.1em; margin-top: 20px;
+      transition: background-color 0.3s;
+    }
+    .submission-box button[type="submit"]:hover { background-color: #388E3C; }
 
-        /* Lịch sử Bài Nộp Table */
-        .history-section h2 {
-            font-size: 1.8em; color: #388E3C; border-bottom: 2px solid #FFC107; padding-bottom: 10px;
-            margin-bottom: 20px; margin-top: 40px;
-        }
-        .history-table {
-            width: 100%; border-collapse: collapse; background-color: white;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-        }
-        .history-table th, .history-table td {
-            border: 1px solid #ddd; padding: 12px; text-align: left;
-        }
-        .history-table th {
-            background-color: #FFC107; color: #333; font-weight: bold;
-        }
-        .history-table tr:nth-child(even) { background-color: #fffaf0; }
-        .history-table a { color: #388E3C; text-decoration: none; font-weight: 600; }
-        .status-new { background-color: #f2f2f2; color: #333; }
-        .status-checked { background-color: #4CAF50; color: white; }
-        .status-badge { display: inline-block; padding: 4px 10px; border-radius: 4px; font-size: 0.9em; font-weight: bold; }
-        
-        /* CSS cho nút Xóa */
-        .action-btn {
-            padding: 5px 10px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-weight: 600;
-            margin-right: 5px;
-            transition: opacity 0.2s;
-        }
-        .action-btn:hover {
-            opacity: 0.8;
-        }
-        .btn-delete {
-            background-color: #e74c3c;
-            color: white;
-        }
+    .history-section h2 {
+      font-size: 1.8em; color: #388E3C; border-bottom: 2px solid #FFC107; padding-bottom: 10px;
+      margin-bottom: 20px; margin-top: 40px;
+    }
+    .history-table {
+      width: 100%; border-collapse: collapse; background-color: white;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+    .history-table th, .history-table td { border: 1px solid #ddd; padding: 12px; text-align: left; }
+    .history-table th { background-color: #FFC107; color: #333; font-weight: bold; }
+    .history-table tr:nth-child(even) { background-color: #fffaf0; }
+    .history-table a { color: #388E3C; text-decoration: none; font-weight: 600; }
+    .status-new { background-color: #f2f2f2; color: #333; }
+    .status-checked { background-color: #4CAF50; color: white; }
+    .status-badge { display: inline-block; padding: 4px 10px; border-radius: 4px; font-size: 0.9em; font-weight: bold; }
 
-        /* Footer */
-        .footer {
-            padding: 20px; text-align: center; background-color: #333;
-            color: white; font-size: 0.9em; margin-top: 40px;
-        }
-    </style>
+    .action-btn {
+      padding: 5px 10px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: 600;
+      margin-right: 5px;
+      transition: opacity 0.2s;
+    }
+    .action-btn:hover { opacity: 0.8; }
+    .btn-delete { background-color: #e74c3c; color: white; }
+
+    .footer {
+      padding: 20px; text-align: center; background-color: #333;
+      color: white; font-size: 0.9em; margin-top: 40px;
+    }
+  </style>
 </head>
-<body onload="checkAccess()">
-    <div class="header">
-        <div class="logo" onclick="window.location.href='trang_chu.html'">
-            <span>LỚP 6A3</span>
-        </div>
-        <div class="nav-links">
-            <a href="trang_chu.html">Trang Chủ</a> 
-            <a href="#" class="active">Nộp Bài</a> 
-            
-            <div id="user-info-container">
-                <img id="user-avatar" src="https://maunailxinh.com/wp-content/uploads/2025/06/avatar-an-danh-1.jpg" alt="Avatar">
-                <span id="welcome-user"></span>
-                <a href="#" onclick="logout()" id="logout-btn">Đăng Xuất</a>
-            </div>
-        </div>
+
+<body>
+  <div class="header">
+    <div class="logo" onclick="window.location.href='trang_chu.html'">
+      <span>LỚP 6A3</span>
     </div>
 
-    <div class="main-area">
-        <div class="submission-area">
-            <h2>Khu vực Nộp Bài Tập</h2>
-            <p>Chào mừng bạn trở lại, <b id="current-display-name"></b>. Bắt đầu nộp bài tập của bạn.</p>
-            
-            <div class="submission-box">
-                <h3>Nộp Bài Tập Mới</h3>
-                <form id="submission-form">
-                    <label for="ten-bai-tap">Tên Bài Tập:</label>
-                    <input type="text" id="ten-bai-tap" required placeholder="Lưu ý: Ghi tên chủ để thuyết trình và tên môn học !">
-                    
-                    <label for="loai-bai-tap">Loại Bài Nộp:</label>
-                    <select id="loai-bai-tap" required>
-                        <option value="" disabled selected>-- Chọn loại bài nộp --</option>
-                        <option value="video">Video/Thuyết trình</option>
-                        <option value="file">Tài liệu/File (PDF/Word)</option>
-                        <option value="link">Liên kết khác (Website/Canva)</option>
-                    </select>
+    <div class="nav-links">
+      <a href="trang_chu.html">Trang Chủ</a>
+      <a href="#" class="active">Nộp Bài</a>
 
-                    <div id="submission-input-container">
-                        <label for="lien-ket" id="link-label">Dán Liên kết (Google Drive/YouTube/v.v.):</label>
-                        <input type="text" id="lien-ket" required placeholder="Liên kết đến file hoặc video...">
-                    </div>
-                    
-                    <button type="submit">Gửi Bài Nộp</button>
-                </form>
-            </div>
-        </div>
+      <div id="user-info-container">
+        <img id="user-avatar" src="https://maunailxinh.com/wp-content/uploads/2025/06/avatar-an-danh-1.jpg" alt="Avatar">
+        <span id="welcome-user"></span>
+        <a href="#" onclick="logout()" id="logout-btn">Đăng Xuất</a>
+      </div>
+    </div>
+  </div>
 
-        <div class="history-section">
-            <h2>📝 Lịch sử Bài nộp của bạn</h2>
-            <table class="history-table">
-                <thead>
-                    <tr>
-                        <th>STT</th>
-                        <th>Tên Bài Tập</th>
-                        <th>Loại Bài Nộp</th>
-                        <th>Thời gian Nộp</th>
-                        <th>Liên kết/File</th>
-                        <th>Trạng thái</th>
-                        <th>Điểm số</th>
-                        <th>Thao tác</th> 
-                    </tr>
-                </thead>
-                <tbody id="my-submissions-list">
-                    </tbody>
-            </table>
-        </div>
+  <div class="main-area">
+    <div class="submission-area">
+      <h2>Khu vực Nộp Bài Tập</h2>
+      <p>Chào mừng bạn trở lại, <b id="current-display-name"></b>. Bắt đầu nộp bài tập của bạn.</p>
+
+      <div class="submission-box">
+        <h3>Nộp Bài Tập Mới</h3>
+
+        <form id="submission-form">
+          <label for="ten-bai-tap">Tên Bài Tập:</label>
+          <input type="text" id="ten-bai-tap" required placeholder="Lưu ý: Ghi tên chủ để thuyết trình và tên môn học !">
+
+          <label for="loai-bai-tap">Loại Bài Nộp:</label>
+          <select id="loai-bai-tap" required>
+            <option value="" disabled selected>-- Chọn loại bài nộp --</option>
+            <option value="video">Video/Thuyết trình</option>
+            <option value="file">Tài liệu/File (PDF/Word)</option>
+            <option value="link">Liên kết khác (Website/Canva)</option>
+          </select>
+
+          <div id="submission-input-container">
+            <label for="lien-ket" id="link-label">Dán Liên kết (Google Drive/YouTube/v.v.):</label>
+            <input type="text" id="lien-ket" required placeholder="Liên kết đến file hoặc video...">
+          </div>
+
+          <button type="submit">Gửi Bài Nộp</button>
+        </form>
+      </div>
     </div>
 
-   <div class="footer">
-        © 2025 Lớp 6A3 Chuyên Anh | Hệ thống Nộp Bài.
+    <div class="history-section">
+      <h2>📝 Lịch sử Bài nộp của bạn</h2>
+      <table class="history-table">
+        <thead>
+          <tr>
+            <th>STT</th>
+            <th>Tên Bài Tập</th>
+            <th>Loại Bài Nộp</th>
+            <th>Thời gian Nộp</th>
+            <th>Liên kết/File</th>
+            <th>Trạng thái</th>
+            <th>Điểm số</th>
+            <th>Thao tác</th>
+          </tr>
+        </thead>
+        <tbody id="my-submissions-list"></tbody>
+      </table>
     </div>
+  </div>
 
-    <script>
-// Đặt đoạn script này vào file nộp bài (Ví dụ: index_hs.html)
+  <div class="footer">
+    © 2025 Lớp 6A3 Chuyên Anh | Hệ thống Nộp Bài.
+  </div>
 
-// Đảm bảo các biến 'database' và 'auth' đã được khởi tạo từ file firebase config
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
 
-function submitHomework() {
-    const user = firebase.auth().currentUser;
+  <!-- Config -->
+  <script src="assets/js/firebase-config.js"></script>
 
-    if (!user) {
-        alert("Bạn chưa đăng nhập. Vui lòng đăng nhập lại.");
-        window.location.href = 'dangnhap.html'; // Chuyển về trang đăng nhập
-        return;
+  <script>
+    // ====== SESSION + ACCESS ======
+    let currentUser = null;
+
+    function getCurrentUser() {
+      const raw = localStorage.getItem('currentUser');
+      if (!raw) return null;
+      try { return JSON.parse(raw); } catch { return null; }
     }
 
-    const title = document.getElementById('assignment-title').value.trim();
-    const type = document.getElementById('submission-type').value;
-    const link = document.getElementById('submission-link').value.trim();
-    
-    if (title === "" || link === "") {
-        alert("Vui lòng điền đầy đủ Tên bài tập và Liên kết bài nộp.");
-        return;
-    }
+    function requireHsAccess() {
+      currentUser = getCurrentUser();
+      if (!currentUser || currentUser.role !== 'hs') {
+        alert('Bạn không có quyền truy cập trang này. Vui lòng đăng nhập bằng tài khoản Học sinh.');
+        window.location.href = 'dangnhap.html';
+        return false;
+      }
 
-    // Lấy tên hiển thị của HS (Lưu ý: Bạn phải đảm bảo displayName đã được lưu trong DB/Local Storage)
-    // Nếu dùng email làm username:
-    const username = user.email; 
-    // Giả định displayName đã được lưu vào profile khi đăng ký
-    const displayName = user.displayName || user.email; 
-
-    const submissionData = {
-        title: title,
-        type: type,
-        link: link,
-        username: username,
-        displayName: displayName, 
-        date: new Date().toLocaleString('vi-VN'),
-        status: 'Chưa chấm', // Trạng thái mặc định để GV biết
-        score: null
-    };
-
-    // Ghi dữ liệu vào nhánh 'submissions' với một khóa tự động (push key)
-    database.ref('submissions').push(submissionData)
-        .then(() => {
-            alert("Bài nộp của bạn đã được gửi thành công và sẽ hiển thị trên hệ thống Giáo viên!");
-            // Xóa form sau khi nộp
-            document.getElementById('assignment-title').value = '';
-            document.getElementById('submission-link').value = '';
-        })
-        .catch((error) => {
-            console.error("Lỗi khi gửi bài nộp:", error);
-            alert("Lỗi: Không thể gửi bài nộp. Vui lòng kiểm tra kết nối mạng.");
-        });
-}
-
-    let loggedInUsername = ''; 
-    let loggedInDisplayName = ''; 
-
-    function checkAccess() {
-        const username = localStorage.getItem('username');
-        const role = localStorage.getItem('role');
-        const displayName = localStorage.getItem('displayName'); 
-
-        if (role !== 'hs' || !username) {
-            alert('Bạn không có quyền truy cập trang này. Vui lòng đăng nhập bằng tài khoản Học sinh.');
-            window.location.href = 'dangnhap.html';
-            return;
-        }
-
-        loggedInUsername = username;
-        // Đảm bảo có displayName. Nếu không có (lỗi), dùng username.
-        loggedInDisplayName = displayName || username; 
-
-        document.getElementById('current-display-name').textContent = loggedInDisplayName;
-        document.getElementById('welcome-user').textContent = `Xin chào, ${loggedInDisplayName}!`;
-        
-        loadMySubmissions();
-        setupFormInteraction(); 
-        setupSubmissionHandler(); 
+      document.getElementById('current-display-name').textContent = currentUser.displayName || currentUser.username;
+      document.getElementById('welcome-user').textContent = `Xin chào, ${(currentUser.displayName || currentUser.username)}!`;
+      return true;
     }
 
     function logout() {
-        localStorage.removeItem('username');
-        localStorage.removeItem('role');
-        localStorage.removeItem('displayName'); 
-        window.location.href = 'trang_chu.html';
+      localStorage.removeItem('currentUser');
+      window.location.href = 'trang_chu.html';
     }
 
-    function deleteSubmission(id) {
-        if (!confirm("Bạn có chắc chắn muốn xóa bài nộp này? Hành động này không thể hoàn tác.")) {
-            return;
-        }
-        
-        let submissions = JSON.parse(localStorage.getItem('submissions') || '[]');
-        
-        // Sử dụng toán tử === hoặc != để so sánh chính xác id (int)
-        const updatedSubmissions = submissions.filter(sub => sub.id !== parseInt(id));
-        
-        localStorage.setItem('submissions', JSON.stringify(updatedSubmissions));
-        
-        alert('Bài nộp đã được xóa thành công.');
-        
-        loadMySubmissions(); 
+    // ====== UI helpers ======
+    function displayType(type) {
+      switch (type) {
+        case 'video': return 'Video/TT';
+        case 'file': return 'Tài liệu/File';
+        case 'link': return 'Liên kết';
+        default: return 'Khác';
+      }
+    }
+
+    function normalizeLink(link) {
+      let x = (link || '').trim();
+      if (!x) return x;
+      if (!x.startsWith('http://') && !x.startsWith('https://')) x = 'https://' + x;
+      return x;
     }
 
     function viewSubmission(link) {
-        if (!link.startsWith('http://') && !link.startsWith('https://') && !link.startsWith('file:')) {
-            link = 'https://' + link;
-        }
-        
-        if (link.startsWith("file:")) {
-            alert("Đây là bài nộp dạng File đã được lưu tên. Vui lòng liên hệ Giáo viên để xem chi tiết file gốc.");
-        } else {
-            window.open(link, '_blank');
-        }
+      const x = normalizeLink(link);
+      window.open(x, '_blank');
     }
 
-    // --- HÀM HIỂN THỊ DỮ LIỆU (Giữ nguyên logic chính) ---
+    // ====== Firebase submissions ======
+    function pushSubmissionToFirebase(data) {
+      // submissions/<pushKey>
+      return db.ref('submissions').push(data);
+    }
+
+    function deleteSubmissionByKey(key) {
+      return db.ref('submissions/' + key).remove();
+    }
+
     function loadMySubmissions() {
-        const submissions = JSON.parse(localStorage.getItem('submissions') || '[]');
-        const tableBody = document.getElementById('my-submissions-list');
-        tableBody.innerHTML = ''; 
+      const tableBody = document.getElementById('my-submissions-list');
+      tableBody.innerHTML = '<tr><td colspan="8" style="text-align:center;">Đang tải...</td></tr>';
 
-        const mySubmissions = submissions.filter(sub => sub.student === loggedInUsername);
-        
-        mySubmissions.sort((a, b) => (b.id || 0) - (a.id || 0));
+      // Query theo username
+      db.ref('submissions')
+        .orderByChild('username')
+        .equalTo(currentUser.username)
+        .once('value')
+        .then((snap) => {
+          const rows = [];
+          snap.forEach(child => {
+            const v = child.val();
+            rows.push({ key: child.key, ...v });
+          });
 
-        if (mySubmissions.length === 0) {
-            // Đảm bảo colspan là 8
-            tableBody.innerHTML = '<tr><td colspan="8" style="text-align: center;">Bạn chưa nộp bài tập nào.</td></tr>'; 
+          // sort mới nhất trước
+          rows.sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
+
+          if (rows.length === 0) {
+            tableBody.innerHTML = '<tr><td colspan="8" style="text-align:center;">Bạn chưa nộp bài tập nào.</td></tr>';
             return;
-        }
+          }
 
-        const displayType = (type) => {
-            switch(type) {
-                case 'video': return 'Video/TT';
-                case 'file': return 'Tài liệu/File';
-                case 'link': return 'Liên kết';
-                default: return 'Khác';
-            }
-        }
-
-        mySubmissions.forEach((sub, index) => {
+          tableBody.innerHTML = '';
+          rows.forEach((sub, index) => {
             const badgeClass = sub.status === 'Chưa chấm' ? 'status-new' : 'status-checked';
-            
-            // LOGIC HIỂN THỊ ĐIỂM SỐ
-            let scoreText;
+
+            let scoreText = `<span style="color:#E74C3C;">Chưa chấm</span>`;
             if (sub.status === 'Đã chấm' && sub.score !== undefined && sub.score !== null) {
-                const score = parseFloat(sub.score).toFixed(1);
-                scoreText = `<span style="font-weight: bold; color: #16A085;">${score}</span>/10`; 
-            } else {
-                scoreText = `<span style="color: #E74C3C;">Chưa chấm</span>`; 
+              const score = Number(sub.score);
+              if (!Number.isNaN(score)) scoreText = `<span style="font-weight:bold; color:#16A085;">${score.toFixed(1)}</span>/10`;
             }
 
-            let linkContent;
-            // Thay đổi màu nút xem cho đồng bộ với giao diện HS
-            linkContent = `<button class="action-btn btn-view" style="background-color: #3498db; color: white;" onclick="viewSubmission('${sub.link}')">Xem Link</button>`;
-
+            const linkBtn = `<button class="action-btn" style="background-color:#3498db; color:white;" onclick="viewSubmission('${(sub.link || '').replace(/'/g, "\\'")}')">Xem Link</button>`;
 
             const row = `
-                <tr>
-                    <td>${index + 1}</td>
-                    <td>${sub.title}</td>
-                    <td>${displayType(sub.type)}</td>
-                    <td>${sub.date}</td>
-                    <td>${linkContent}</td>      <td><span class="status-badge ${badgeClass}">${sub.status}</span></td>
-                    <td>${scoreText}</td>        <td>
-                        <button class="action-btn btn-delete" onclick="deleteSubmission(${sub.id})">Xóa</button> 
-                    </td>
-                </tr>
+              <tr>
+                <td>${index + 1}</td>
+                <td>${sub.title || ''}</td>
+                <td>${displayType(sub.type)}</td>
+                <td>${sub.date || ''}</td>
+                <td>${linkBtn}</td>
+                <td><span class="status-badge ${badgeClass}">${sub.status || 'Chưa chấm'}</span></td>
+                <td>${scoreText}</td>
+                <td>
+                  <button class="action-btn btn-delete" onclick="handleDelete('${sub.key}')">Xóa</button>
+                </td>
+              </tr>
             `;
             tableBody.innerHTML += row;
+          });
+        })
+        .catch((err) => {
+          console.error(err);
+          tableBody.innerHTML = '<tr><td colspan="8" style="text-align:center; color:#e74c3c;">Lỗi tải dữ liệu. Mở Console để xem.</td></tr>';
         });
     }
 
-    // --- HÀM NỘP BÀI TẬP (ĐÃ THÊM displayName) ---
+    function handleDelete(key) {
+      if (!confirm('Bạn có chắc chắn muốn xóa bài nộp này?')) return;
+
+      deleteSubmissionByKey(key)
+        .then(() => {
+          alert('Đã xóa bài nộp.');
+          loadMySubmissions();
+        })
+        .catch((err) => {
+          console.error(err);
+          alert('Không xóa được. Kiểm tra Rules/Console.');
+        });
+    }
+
+    // ====== Submit handler ======
     function handleSubmitSubmission(event) {
-        event.preventDefault();
+      event.preventDefault();
 
-        const form = event.target;
-        const title = document.getElementById('ten-bai-tap').value.trim();
-        const type = document.getElementById('loai-bai-tap').value;
-        const linkInput = document.getElementById('lien-ket');
-        let link = linkInput.value.trim();
+      const title = document.getElementById('ten-bai-tap').value.trim();
+      const type = document.getElementById('loai-bai-tap').value;
+      const linkEl = document.getElementById('lien-ket');
+      const link = normalizeLink(linkEl ? linkEl.value : '');
 
-        if (!title || !type || !link) {
-            alert("Vui lòng nhập đầy đủ Tên Bài Tập, Loại Bài Nộp, và Liên kết!");
-            return;
+      if (!title || !type || !link) {
+        alert('Vui lòng nhập đầy đủ Tên Bài Tập, Loại Bài Nộp và Liên kết!');
+        return;
+      }
+
+      const submissionData = {
+        title: title,
+        type: type,
+        link: link,
+
+        username: currentUser.username,
+        displayName: currentUser.displayName || currentUser.username,
+
+        date: new Date().toLocaleString('vi-VN'),
+        createdAt: Date.now(),
+
+        status: 'Chưa chấm',
+        score: null
+      };
+
+      pushSubmissionToFirebase(submissionData)
+        .then(() => {
+          alert('🎉 Nộp bài thành công! Giáo viên sẽ thấy bài của bạn trong hệ thống.');
+          document.getElementById('submission-form').reset();
+          document.getElementById('loai-bai-tap').value = '';
+          setupFormInteraction();
+          loadMySubmissions();
+        })
+        .catch((err) => {
+          console.error(err);
+          alert('Không gửi được bài. Kiểm tra Rules/Console.');
+        });
+    }
+
+    // ====== Form dynamic input (giữ logic bạn đang có, chỉ làm gọn & an toàn) ======
+    function setupFormInteraction() {
+      const loaiBaiTapSelect = document.getElementById('loai-bai-tap');
+      const inputContainer = document.getElementById('submission-input-container');
+
+      function updateInputFields(selectedValue) {
+        let content = '';
+        const guideLink = "https://www.youtube.com/watch?v=IZ7TwQej_WU";
+
+        if (selectedValue === 'video' || selectedValue === 'file') {
+          const specificRecommendationText =
+            selectedValue === 'video'
+              ? 'HÃY CHUYỂN **VIDEO** CỦA BẠN VỀ GOOGLE DRIVE/YOUTUBE VÀ NỘP VÀO PHẦN **LIÊN KẾT** (BÊN DƯỚI) ĐỂ TRÁNH LỖI.'
+              : 'HÃY CHUYỂN **FILE TÀI LIỆU** CỦA BẠN (nếu tệp lớn) VỀ GOOGLE DRIVE VÀ NỘP VÀO PHẦN **LIÊN KẾT** (BÊN DƯỚI) ĐỂ ĐẢM BẢO CHẤT LƯỢNG.';
+
+          content = `
+            <div style="margin-top: 10px; padding: 15px; border: 2px solid #e74c3c; background-color: #fff4f4; border-radius: 6px; margin-bottom: 15px;">
+              <p style="font-weight: bold; color: #e74c3c; margin-top: 0; font-size: 1.1em;">
+                🚫 CHỨC NĂNG TẢI TỆP TRỰC TIẾP KHÔNG KHẢ DỤNG
+              </p>
+              <p style="font-weight: bold; color: #e74c3c; margin-bottom: 5px;">
+                ⚠️ Vui lòng CHỈ nộp bằng LIÊN KẾT. Bài nộp dạng file trực tiếp sẽ không được giáo viên nhận.
+              </p>
+              <p style="font-weight: bold; color: #3498db; margin-bottom: 5px;">
+                💡 KHUYẾN NGHỊ: ${specificRecommendationText}
+              </p>
+              <hr style="border-top: 1px solid #e74c3c; margin: 10px 0;">
+              <p style="font-size: 0.9em; margin-bottom: 0;">
+                Nếu không biết cách chuyển lên Google Drive/YouTube, hãy xem hướng dẫn sau:
+                <br>
+                <a href="${guideLink}" target="_blank" style="color: #27ae60; font-weight: bold; text-decoration: none;">
+                  Xem Hướng Dẫn Chi Tiết
+                </a>
+              </p>
+            </div>
+            <label for="lien-ket">Dán Liên kết đã chuyển (Google Drive/YouTube/v.v.):</label>
+            <input type="text" id="lien-ket" required placeholder="Liên kết đến file hoặc video...">
+          `;
+        } else if (selectedValue === 'link') {
+          content = `
+            <label for="lien-ket">Dán Liên kết (Website/Canva/Google Drive/YouTube):</label>
+            <input type="text" id="lien-ket" required placeholder="Dán liên kết dự án video, ...">
+          `;
+        } else {
+          content = `
+            <label for="lien-ket">Dán Liên kết:</label>
+            <input type="text" id="lien-ket" disabled placeholder="Vui lòng chọn Loại Bài Nộp trước...">
+          `;
         }
 
-        // Fix: Nếu link không có giao thức, thêm https:// (trừ khi là file:)
-        if (!link.startsWith('http://') && !link.startsWith('https://') && !link.startsWith('file:')) {
-            link = 'https://' + link;
-        }
-        
-        // CHỈNH SỬA LỚN: Thêm displayName vào object bài nộp
-        const newSubmission = {
-            id: Date.now(), 
-            student: loggedInUsername, 
-            displayName: loggedInDisplayName, // <--- Đã THÊM: Tên hiển thị đầy đủ
-            title: title,
-            type: type,
-            link: link,
-            date: new Date().toLocaleString('vi-VN'),
-            status: 'Chưa chấm',
-            score: null 
-        };
+        inputContainer.innerHTML = content;
+      }
 
-        let submissions = JSON.parse(localStorage.getItem('submissions') || '[]');
-        submissions.push(newSubmission);
-        localStorage.setItem('submissions', JSON.stringify(submissions));
+      updateInputFields(loaiBaiTapSelect.value);
 
-        form.reset();
-        document.getElementById('loai-bai-tap').value = ''; 
-        setupFormInteraction(); 
-        
-        loadMySubmissions();
-
-        alert("🎉 Nộp bài thành công!\n\n⚠️ LƯU Ý: Bài nộp đã được lưu với địa chỉ chính xác. Tuy nhiên, dữ liệu này chỉ được lưu cục bộ trên máy của bạn. Để Giáo viên chấm bài được, vui lòng đảm bảo liên kết bạn nộp là liên kết chia sẻ công khai.");
+      loaiBaiTapSelect.onchange = function () {
+        updateInputFields(this.value);
+      };
     }
 
     function setupSubmissionHandler() {
-        const form = document.getElementById('submission-form');
-        // Đảm bảo không thêm nhiều event listener nếu form đã được thêm
-        form.removeEventListener('submit', handleSubmitSubmission);
-        form.addEventListener('submit', handleSubmitSubmission);
+      const form = document.getElementById('submission-form');
+      form.removeEventListener('submit', handleSubmitSubmission);
+      form.addEventListener('submit', handleSubmitSubmission);
     }
 
-    function setupFormInteraction() {
-        const loaiBaiTapSelect = document.getElementById('loai-bai-tap');
-        const inputContainer = document.getElementById('submission-input-container');
+    // ====== init ======
+    document.addEventListener('DOMContentLoaded', () => {
+      if (!requireHsAccess()) return;
 
-        updateInputFields(loaiBaiTapSelect.value);
-
-        loaiBaiTapSelect.addEventListener('change', function() {
-            updateInputFields(this.value);
-        });
-
-        function updateInputFields(selectedValue) {
-            let content = '';
-            
-            const guideLink = "https://www.youtube.com/watch?v=IZ7TwQej_WU" 
-
-            if (selectedValue === 'video' || selectedValue === 'file') {
-                
-                let specificRecommendationText = '';
-
-                if (selectedValue === 'video') {
-                    specificRecommendationText = 'HÃY CHUYỂN **VIDEO** CỦA BẠN VỀ GOOGLE DRIVE/YOUTUBE VÀ NỘP VÀO PHẦN **LIÊN KẾT** (BÊN DƯỚI) ĐỂ TRÁNH LỖI.';
-                } else { // 'file'
-                    specificRecommendationText = 'HÃY CHUYỂN **FILE TÀI LIỆU** CỦA BẠN (nếu tệp lớn) VỀ GOOGLE DRIVE VÀ NỘP VÀO PHẦN **LIÊN KẾT** (BÊN DƯỚI) ĐỂ ĐẢM BẢO CHẤT LƯỢNG.';
-                }
-
-                content = `
-                    <div style="margin-top: 10px; padding: 15px; border: 2px solid #e74c3c; background-color: #fff4f4; border-radius: 6px; margin-bottom: 15px;">
-                        <p style="font-weight: bold; color: #e74c3c; margin-top: 0; font-size: 1.1em;">
-                            🚫 CHỨC NĂNG TẢI TỆP TRỰC TIẾP KHÔNG KHẢ DỤNG
-                        </p>
-                        <p style="font-weight: bold; color: #e74c3c; margin-bottom: 5px;">
-                            ⚠️ Vui lòng CHỈ nộp bằng LIÊN KẾT. Bài nộp dạng file trực tiếp sẽ không được giáo viên nhận.
-                        </p>
-                        <p style="font-weight: bold; color: #3498db; margin-bottom: 5px;">
-                            💡 KHUYẾN NGHỊ: ${specificRecommendationText}
-                        </p>
-                        <hr style="border-top: 1px solid #e74c3c; margin: 10px 0;">
-                        <p style="font-size: 0.9em; margin-bottom: 0;">
-                            Nếu không biết cách chuyển lên Google Drive/YouTube, hãy xem hướng dẫn sau:
-                            <br>
-                            <a href="${guideLink}" target="_blank" style="color: #27ae60; font-weight: bold; text-decoration: none;">
-                                Xem Hướng Dẫn Chi Tiết
-                            </a>
-                        </p>
-                    </div>
-                    <label for="lien-ket">Dán Liên kết đã chuyển (Google Drive/YouTube/v.v.):</label>
-                    <input type="text" id="lien-ket" required placeholder="Liên kết đến file hoặc video...">
-                `;
-
-            } else if (selectedValue === 'link') {
-                content = `
-                    <label for="lien-ket">Dán Liên kết (Website/Canva/Google Drive/YouTube):</label>
-                    <input type="text" id="lien-ket" required placeholder="Dán liên kết dự án video, ...">
-                `;
-            } else {
-                content = `
-                    <label for="lien-ket">Dán Liên kết/Chọn File:</label>
-                    <input type="text" id="lien-ket" disabled placeholder="Vui lòng chọn Loại Bài Nộp trước...">
-                `;
-            }
-            
-            inputContainer.innerHTML = content;
-        }
-    }
-    
-    // Đã xóa: document.addEventListener('DOMContentLoaded', checkAccess); 
-    // vì đã có onload="checkAccess()" trong thẻ <body>
-    </script>
+      setupFormInteraction();
+      setupSubmissionHandler();
+      loadMySubmissions();
+    });
+  </script>
 </body>
 </html>
