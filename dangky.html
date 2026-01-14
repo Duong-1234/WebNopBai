@@ -6,6 +6,7 @@
     <title>Đăng Ký | Cổng Nộp Bài 6A3</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
     <style>
         /* CSS của bạn (Giữ nguyên) */
         :root {
@@ -28,15 +29,11 @@
             display: flex;
             min-height: 100vh;
             color: var(--text-color);
-            overflow: hidden; 
+            overflow: hidden;
         }
 
-        .signup-wrapper {
-            display: flex;
-            width: 100%;
-        }
+        .signup-wrapper { display: flex; width: 100%; }
 
-        /* --- HEADER --- */
         .header {
             background-color: var(--primary-green);
             color: white;
@@ -45,9 +42,9 @@
             justify-content: space-between;
             align-items: center;
             box-shadow: var(--box-shadow);
-            position: absolute; 
+            position: absolute;
             top: 0;
-            width: calc(100% - 80px); 
+            width: calc(100% - 80px);
             z-index: 10;
         }
 
@@ -59,37 +56,28 @@
             cursor: pointer;
         }
 
-        .nav-links {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
+        .nav-links { display: flex; align-items: center; gap: 10px; }
 
-        /* Nút Đăng Nhập (màu vàng) */
-        .nav-links a.btn-login-nav { 
-            background-color: var(--accent-yellow); 
-            color: var(--dark-gray); 
+        .nav-links a.btn-login-nav {
+            background-color: var(--accent-yellow);
+            color: var(--dark-gray);
             font-weight: 900;
             padding: 10px 20px;
-            border-radius: 25px; 
+            border-radius: 25px;
         }
-        .nav-links a.btn-login-nav:hover { 
-            background-color: #ffd760; 
-        }
+        .nav-links a.btn-login-nav:hover { background-color: #ffd760; }
 
-
-        /* --- LEFT SIDE - SIGNUP FORM --- */
         .signup-left {
             flex: 1;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            padding: 120px 40px 40px 40px; 
+            padding: 120px 40px 40px 40px;
             background-color: white;
             position: relative;
-            min-width: 400px; 
-            overflow-y: auto; 
+            min-width: 400px;
+            overflow-y: auto;
         }
 
         .signup-logo-small {
@@ -102,11 +90,7 @@
             cursor: pointer;
         }
 
-        .signup-form-container {
-            width: 100%;
-            max-width: 380px; 
-            text-align: left;
-        }
+        .signup-form-container { width: 100%; max-width: 380px; text-align: left; }
 
         .signup-form-container h1 {
             font-size: 2.2em;
@@ -115,10 +99,7 @@
             color: var(--dark-gray);
         }
 
-        .form-group {
-            margin-bottom: 20px;
-        }
-
+        .form-group { margin-bottom: 20px; }
         .form-group label {
             display: block;
             font-size: 0.9em;
@@ -127,9 +108,7 @@
             font-weight: 500;
         }
 
-        .input-box-wrapper {
-            position: relative;
-        }
+        .input-box-wrapper { position: relative; }
 
         .form-group input[type="text"],
         .form-group input[type="password"],
@@ -158,18 +137,6 @@
             border-color: var(--primary-green);
         }
 
-        .form-options {
-            display: flex;
-            justify-content: flex-start;
-            align-items: center;
-            margin-bottom: 30px;
-            font-size: 0.9em;
-        }
-
-        .form-options input[type="checkbox"] {
-            margin-right: 5px;
-        }
-
         .btn-signup {
             width: 100%;
             padding: 15px;
@@ -183,16 +150,9 @@
             transition: background-color 0.3s ease;
             margin-bottom: 20px;
         }
-        .btn-signup:hover {
-            background-color: var(--light-green);
-        }
+        .btn-signup:hover { background-color: var(--light-green); }
 
-        .back-to-home {
-            width: 100%;
-            text-align: center;
-            margin-top: 10px;
-            font-size: 1em;
-        }
+        .back-to-home { width: 100%; text-align: center; margin-top: 10px; font-size: 1em; }
         .back-to-home a {
             display: inline-block;
             color: var(--medium-gray);
@@ -201,13 +161,8 @@
             font-weight: 500;
             transition: color 0.3s;
         }
-        .back-to-home a:hover {
-            color: var(--primary-green);
-            text-decoration: underline;
-        }
+        .back-to-home a:hover { color: var(--primary-green); text-decoration: underline; }
 
-
-        /* --- RIGHT SIDE - IMAGE --- */
         .signup-right {
             flex: 1.2;
             background-color: #2F4F4F;
@@ -226,18 +181,13 @@
             font-weight: bold;
         }
 
-        /* Responsive adjustments */
         @media (max-width: 992px) {
-            .signup-right {
-                display: none;
-            }
-            .signup-left {
-                width: 100%;
-                flex: none;
-            }
+            .signup-right { display: none; }
+            .signup-left { width: 100%; flex: none; }
         }
     </style>
 </head>
+
 <body>
     <div class="header">
         <a href="trang_chu.html" class="logo">6A3</a>
@@ -248,14 +198,12 @@
 
     <div class="signup-wrapper">
         <div class="signup-left">
-            <div class="signup-logo-small" onclick="window.location.href='trang_chu.html'">
-                6A3
-            </div>
+            <div class="signup-logo-small" onclick="window.location.href='trang_chu.html'">6A3</div>
 
             <div class="signup-form-container">
                 <h1>Sign Up</h1>
 
-                <form id="signup-form"> 
+                <form id="signup-form">
                     <div class="form-group">
                         <label for="display-name">Họ và tên hiển thị</label>
                         <input type="text" id="display-name" required placeholder="Tên của bạn">
@@ -305,16 +253,12 @@
         </div>
 
         <div class="signup-right">
-            <div class="signup-right-overlay">
-                CỔNG NỘP BÀI
-            </div>
+            <div class="signup-right-overlay">CỔNG NỘP BÀI</div>
         </div>
     </div>
 
-    <script src="db_submissions.js"></script> 
-    
+    <!-- Ẩn/hiện mật khẩu -->
     <script>
-        // Chức năng ẩn/hiện mật khẩu (giữ nguyên)
         document.querySelectorAll('.password-icon').forEach(icon => {
             icon.addEventListener('click', function() {
                 const passwordInput = this.previousElementSibling;
@@ -324,66 +268,14 @@
                 this.classList.toggle('fa-eye');
             });
         });
-
-        // Hàm xử lý đăng ký chính
-        document.getElementById('signup-form').addEventListener('submit', function(event) {
-            event.preventDefault();
-
-            const displayName = document.getElementById('display-name').value.trim();
-            const username = document.getElementById('username').value.trim();
-            const password = document.getElementById('password').value;
-            const confirmPassword = document.getElementById('confirm-password').value;
-            const role = document.getElementById('role').value; // Giữ lại trường role
-
-            // --- 1. KIỂM TRA DỮ LIỆU ---
-            if (!displayName || !username || !password || !confirmPassword || !role) {
-                alert('Vui lòng điền đầy đủ tất cả các trường.');
-                return;
-            }
-            if (password !== confirmPassword) {
-                alert('Mật khẩu và xác nhận mật khẩu không khớp.');
-                return;
-            }
-            if (password.length < 6) {
-                alert('Mật khẩu phải có ít nhất 6 ký tự.');
-                return;
-            }
-            const usernameRegex = /^[a-zA-Z0-9_]+$/;
-            if (!usernameRegex.test(username)) {
-                alert('Tên đăng nhập chỉ có thể chứa chữ cái (không dấu), số và dấu gạch dưới.');
-                return;
-            }
-
-            // --- 2. LẤY VÀ KIỂM TRA DANH SÁCH (SỬ DỤNG KEY CHUNG 'allUsers') ---
-            const usersJSON = localStorage.getItem('allUsers');
-            let allUsers = {};
-            if (usersJSON) {
-                allUsers = JSON.parse(usersJSON);
-            }
-            
-            // Kiểm tra tên đăng nhập đã tồn tại chưa (trong Object)
-            if (allUsers[username]) {
-                alert('Tên đăng nhập này đã tồn tại. Vui lòng chọn tên khác.');
-                return;
-            }
-
-            // --- 3. LƯU TÀI KHOẢN MỚI (DƯỚI DẠNG OBJECT) ---
-            const newUser = {
-                displayName: displayName,
-                password: password, 
-                role: role // Lưu vai trò đã chọn
-            };
-
-            // Thêm người dùng mới vào Object
-            allUsers[username] = newUser;
-            
-            // LƯU LẠI VÀO LOCAL STORAGE DƯỚI KEY 'allUsers' (dạng OBJECT)
-            localStorage.setItem('allUsers', JSON.stringify(allUsers)); 
-
-            // --- 4. CHUYỂN HƯỚNG ---
-            alert('Đăng ký thành công! Bạn có thể đăng nhập ngay bây giờ.');
-            window.location.href = 'dangnhap.html'; 
-        });
     </script>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+
+    <!-- Config + logic (Firebase) -->
+    <script src="assets/js/firebase-config.js"></script>
+    <script src="assets/js/signup.js"></script>
 </body>
 </html>
